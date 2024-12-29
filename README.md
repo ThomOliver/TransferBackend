@@ -1,5 +1,8 @@
 # Transfer Service - Backend
 
+## Documentação
+https://www.notion.so/Transfer-Service-16be0bb4388a806ba3feed64f39647d7?pvs=4
+
 # Visão Geral
 
 Este projeto é um serviço de transferência construído com Node.js, Express, Sequelize (ORM), e PostgreSQL como banco de dados. Ele fornece endpoints para gerenciar transferências financeiras, incluindo criação, listagem e validação de dados. O projeto utiliza Docker e Docker Compose para configuração de ambiente, permitindo a execução de serviços backend, frontend e banco de dados.
@@ -73,9 +76,13 @@ Certifique-se de ter as seguintes ferramentas instaladas:
 Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis de ambiente:
 
 ```env
-DB_NAME=transfer_db
-DB_USER=transfer_user
-DB_PASSWORD=transfer_password
+DB_NAME=transferdb
+DB_USER=postgres
+DB_PASSWORD=Baraco12
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME_TEST=transferTextdb
+PORT=4000
 ```
 
 ### Arquivo `docker-compose.yml`
@@ -85,7 +92,7 @@ version: "3.8"
 services:
   app:
     build:
-      context: ./TransferBackend
+      context: ./backend
       dockerfile: Dockerfile
     ports:
       - "4000:4000"
@@ -99,8 +106,9 @@ services:
     depends_on:
       - db
     volumes:
-      - ./TransferBackend:/app 
+      - ./backend:/app
     command: npm run dev
+
   db:
     image: postgres:15
     container_name: postgres_transfer_service
@@ -116,22 +124,21 @@ services:
 
   frontend:
     build:
-      context: ./TransferFrontend
+      context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "3000:3000" 
+      - "3000:3000"
     environment:
-      REACT_APP_API_URL: "http://app:4000" 
+      REACT_APP_API_URL: "http://app:4000"
     depends_on:
       - app
     volumes:
-      - ./TransferFrontend:/app 
+      - ./frontend:/app
     stdin_open: true
     tty: true
 
 volumes:
   db_data:
-
 ```
 
 ---
