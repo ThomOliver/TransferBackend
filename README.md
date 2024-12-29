@@ -85,7 +85,7 @@ version: "3.8"
 services:
   app:
     build:
-      context: ./backend
+      context: ./TransferBackend
       dockerfile: Dockerfile
     ports:
       - "4000:4000"
@@ -99,9 +99,8 @@ services:
     depends_on:
       - db
     volumes:
-      - ./backend:/app
+      - ./TransferBackend:/app 
     command: npm run dev
-
   db:
     image: postgres:15
     container_name: postgres_transfer_service
@@ -117,21 +116,22 @@ services:
 
   frontend:
     build:
-      context: ./frontend
+      context: ./TransferFrontend
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3000:3000" 
     environment:
-      REACT_APP_API_URL: "http://app:4000"
+      REACT_APP_API_URL: "http://app:4000" 
     depends_on:
       - app
     volumes:
-      - ./frontend:/app
+      - ./TransferFrontend:/app 
     stdin_open: true
     tty: true
 
 volumes:
   db_data:
+
 ```
 
 ---
