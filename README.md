@@ -11,6 +11,21 @@ Este projeto é um serviço de transferência construído com Node.js, Express, 
 
 ## Estrutura do Projeto
 
+Criar pasta transferProject com as pastas TransferBackend, TransferFrontend dentro da pasta raiz (transferProject), junto com os arquivos .env, docker-compose.yml. exemplo Abaixo.
+
+```plaintext
+transferProject/
+├── TransferBackend/      # Código do Back-end
+│   ├── Dockerfile        # Dockerfile do Back-end
+├── TransferFrontend/     # Código do Front-end
+│   ├── Dockerfile        # Dockerfile do Front-end
+├── docker-compose.yml    # Configuração do Docker Compose
+├── .env                  # Variáveis de ambiente
+
+```
+
+---
+
 A estrutura de diretórios do projeto é organizada da seguinte forma:
 
 ```
