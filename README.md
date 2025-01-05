@@ -11,19 +11,6 @@ Este projeto é um serviço de transferência construído com Node.js, Express, 
 
 ## Estrutura do Projeto
 
-Criar pasta transferProject com as pastas TransferBackend, TransferFrontend dentro da pasta raiz (transferProject), junto com os arquivos .env, docker-compose.yml. exemplo Abaixo.
-
-```plaintext
-transferProject/
-├── TransferBackend/      # Código do Back-end
-│   ├── Dockerfile        # Dockerfile do Back-end
-├── TransferFrontend/     # Código do Front-end
-│   ├── Dockerfile        # Dockerfile do Front-end
-├── docker-compose.yml    # Configuração do Docker Compose
-├── .env                  # Variáveis de ambiente
-
-```
-
 ---
 
 A estrutura de diretórios do projeto é organizada da seguinte forma:
@@ -84,7 +71,20 @@ Certifique-se de ter as seguintes ferramentas instaladas:
 
 ---
 
-## Configuração com Docker Compose
+## Rodar projeto com Docker Compose
+
+Criar pasta transferProject com as pastas TransferBackend, TransferFrontend dentro da pasta raiz (transferProject), junto com os arquivos .env, docker-compose.yml. exemplo Abaixo.
+
+```plaintext
+transferProject/
+├── TransferBackend/      # Código do Back-end
+│   ├── Dockerfile        # Dockerfile do Back-end
+├── TransferFrontend/     # Código do Front-end
+│   ├── Dockerfile        # Dockerfile do Front-end
+├── docker-compose.yml    # Configuração do Docker Compose
+├── .env                  # Variáveis de ambiente
+
+```
 
 ### Arquivo `.env`
 
@@ -107,7 +107,7 @@ version: "3.8"
 services:
   app:
     build:
-      context: ./backend
+      context: ./TransferBackend
       dockerfile: Dockerfile
     ports:
       - "4000:4000"
@@ -121,7 +121,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./backend:/app
+      - ./TransferBackend:/app
     command: npm run dev
 
   db:
@@ -139,7 +139,7 @@ services:
 
   frontend:
     build:
-      context: ./frontend
+      context: ./TransferFrontend
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
@@ -148,12 +148,13 @@ services:
     depends_on:
       - app
     volumes:
-      - ./frontend:/app
+      - ./TransferFrontend:/app
     stdin_open: true
     tty: true
 
 volumes:
   db_data:
+
 ```
 
 ---
