@@ -107,7 +107,7 @@ version: "3.8"
 services:
   app:
     build:
-      context: ./backend
+      context: ./TransferBackend
       dockerfile: Dockerfile
     ports:
       - "4000:4000"
@@ -121,7 +121,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./backend:/app
+      - ./TransferBackend:/app
     command: npm run dev
 
   db:
@@ -139,7 +139,7 @@ services:
 
   frontend:
     build:
-      context: ./frontend
+      context: ./TransferFrontend
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
@@ -148,7 +148,7 @@ services:
     depends_on:
       - app
     volumes:
-      - ./frontend:/app
+      - ./TransferFrontend:/app
     stdin_open: true
     tty: true
 
